@@ -254,6 +254,11 @@
     function msg(text) { $('#log').prepend(text + '<br/>'); }
 
     function init() {
+      if(!isValidUser()){
+        window.location.replace('index.html')
+        return;
+      }
+
       let sess = wialon.core.Session.getInstance();
       let flags = wialon.item.Item.dataFlag.base | wialon.item.Unit.dataFlag.lastMessage;
 
@@ -289,6 +294,11 @@
           consulta();
         }
       );
+    }
+
+    function isValidUser(){
+      let user = wialon.core.Session.getInstance().getCurrUser();
+      return user.getName().toLowerCase() === 'mtransporte';
     }
 
     function consulta(){
